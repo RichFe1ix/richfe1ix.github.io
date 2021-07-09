@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>預約</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        Google App Script：<input id="appUrl" /><br />
+        試算表網址：<input id="sheetsUrl" /><br />
+        工作表名稱：<input id="sheetName" /><br />
+        列：<input id="startRow" /><br />
+        欄：<input id="startColumn" /><br />
+        <button id="sendBtn">查詢</button><br />
+        <h2 id="show"></h2>
+        <script>
+            var appUrl = $("#appUrl"),
+                sheetsUrl = $("#sheetsUrl"),
+                sheetName = $("#sheetName"),
+                startRow = $("#startRow"),
+                startColumn = $("#startColumn"),
+                sendBtn = $("#sendBtn"),
+                show = $("#show");
+            var parameter = {};
+
+            sendBtn.on("click", function () {
+                parameter = {
+                    url: sheetsUrl.val(),
+                    name: sheetName.val(),
+                    startRow: startRow.val() * 1,
+                    startColumn: startColumn.val() * 1,
+                };
+                $.get(appUrl.val(), parameter, function (data) {
+                    if (!data) {
+                        show.text("無資料");
+                    } else {
+                        show.text(data);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
